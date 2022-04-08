@@ -20,9 +20,7 @@ class Player {
   }
 
   draw() {
-    // context.fillStyle = "red";
-    // context.fillRect(this.position.x, this.position.y, this.width, this.height);
-    if (this.image) {
+    if (this.image)
       context.drawImage(
         this.image,
         this.position.x,
@@ -30,6 +28,5 @@ class Player {
         this.width,
         this.height
       );
-    }
   }
 }
