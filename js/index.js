@@ -5,7 +5,7 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 const game = new Game();
-const keys = {
+const values = {
   a: {
     pressed: false,
   },
@@ -16,38 +16,57 @@ const keys = {
     pressed: false,
   },
 };
+
 document.addEventListener("keydown", ({ key }) => {
   switch (key) {
     case "a":
-      //   game.movePlayer("right");
-      console.log("moving left");
-      keys.a.pressed = true;
+      values.a.pressed = true;
       break;
     case "d":
-      console.log("moving right");
-      keys.d.pressed = true;
+      values.d.pressed = true;
       break;
-    case 32:
-      keys.space.pressed = true;
-      break;
+  }
+});
+
+document.addEventListener("keydown", function (e) {
+  if (
+    e.keyCode === 32 &&
+    values.a.pressed === false &&
+    values.d.pressed === false
+  ) {
+    console.log("pressed space");
+    game.createProjectiles(
+      new Projectile({
+        position: {
+          x: game.player.position.x,
+          y: game.player.position.y,
+        },
+        velocity: {
+          x: 0,
+          y: -9,
+        },
+      })
+    );
+    game.animateProjectile();
+    values.space.pressed = true;
   }
 });
 
 document.addEventListener("keyup", ({ key }) => {
   switch (key) {
     case "a":
-      keys.a.pressed = false;
+      values.a.pressed = false;
       break;
     case "d":
-      keys.d.pressed = false;
+      values.d.pressed = false;
       break;
     case " ":
-      keys.space.pressed = false;
+      values.space.pressed = false;
       break;
   }
 });
 
 window.addEventListener("load", () => {
   game.start();
-  game.animate();
+  game.animatePilot();
 });

@@ -1,30 +1,43 @@
 class Game {
-  constructor(canvas, context) {
+  constructor() {
     this.player = null;
-    this.context = context;
-    this.canvas = canvas;
+    this.projectiles = [];
   }
 
   start() {
     this.player = new Player();
   }
 
-  animate() {
+  createProjectiles(value) {
+    this.projectiles.push({ value });
+  }
+
+  animateProjectile() {
     requestAnimationFrame(() => {
-      this.animate();
+      this.animateProjectile();
+    });
+    game.projectiles.forEach(projectile =>);
+  }
+
+  animatePilot() {
+    requestAnimationFrame(() => {
+      this.animatePilot();
     });
     context.fillStyle = "black";
     context.fillRect(0, 0, canvas.width, canvas.height);
     game.update();
-    if (keys.a.pressed && this.player.position.x >= 0) {
-      this.player.velocity.x = -5;
+    if (values.a.pressed && this.player.position.x >= 0) {
+      this.player.velocity.x = -7;
+      this.player.turn = -0.15;
     } else if (
-      keys.d.pressed &&
+      values.d.pressed &&
       this.player.position.x <= canvas.width - this.player.width
     ) {
-      this.player.velocity.x = 5;
+      this.player.velocity.x = 7;
+      this.player.turn = +0.15;
     } else {
       this.player.velocity.x = 0;
+      this.player.turn = 0;
     }
   }
 

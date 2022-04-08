@@ -4,11 +4,12 @@ class Player {
       x: 0,
       y: 0,
     };
+    this.turn = 0;
 
     const image = new Image();
     image.src = "./images/spaceship.png";
     image.onload = () => {
-      const scale = 0.18;
+      const scale = 0.15;
       this.image = image;
       this.width = image.width * scale;
       this.height = image.height * scale;
@@ -20,13 +21,24 @@ class Player {
   }
 
   draw() {
-    if (this.image)
-      context.drawImage(
-        this.image,
-        this.position.x,
-        this.position.y,
-        this.width,
-        this.height
-      );
+    context.save();
+    context.translate(
+      game.player.position.x + game.player.width / 2,
+      game.player.position.y + game.player.height / 2
+    );
+    context.rotate(game.player.turn);
+
+    context.translate(
+      -game.player.position.x - game.player.width / 2,
+      -game.player.position.y - game.player.height / 2
+    );
+    context.drawImage(
+      this.image,
+      this.position.x,
+      this.position.y,
+      this.width,
+      this.height
+    );
+    context.restore();
   }
 }
