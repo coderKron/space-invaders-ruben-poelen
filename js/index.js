@@ -34,21 +34,18 @@ document.addEventListener("keydown", function (e) {
     values.a.pressed === false &&
     values.d.pressed === false
   ) {
-    console.log("pressed space");
     game.createProjectiles(
       new Projectile({
         position: {
           x: game.player.position.x + game.player.width / 2,
           y: game.player.position.y,
         },
-        velocity: {
+        speed: {
           x: 0,
           y: -5,
         },
       })
     );
-    game.animateProjectile();
-    console.log(game.projectiles);
     values.space.pressed = true;
   }
 });
@@ -71,3 +68,5 @@ window.addEventListener("load", () => {
   game.start();
   game.animatePilot();
 });
+
+//setTimeout(() => {},0)

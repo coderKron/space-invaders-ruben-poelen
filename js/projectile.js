@@ -1,11 +1,11 @@
 class Projectile {
-  constructor({ position, velocity }) {
+  constructor({ position, speed }) {
     this.position = position;
-    this.velocity = velocity;
+    this.speed = speed;
     this.radius = 3;
   }
 
-  draw() {
+  drawProjectile() {
     context.beginPath();
     context.arc(this.position.x, this.position.y, this.radius, 0, Math.PI * 2);
     context.fillStyle = "aqua";
@@ -13,9 +13,9 @@ class Projectile {
     context.closePath();
   }
 
-  update() {
-    this.draw();
-    this.position.x += this.velocity.x;
-    this.position.y += this.velocity.y;
+  updateProjectile() {
+    this.drawProjectile();
+    this.position.x += this.speed.x;
+    this.position.y += this.speed.y;
   }
 }
