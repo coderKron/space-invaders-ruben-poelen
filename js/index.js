@@ -1,52 +1,35 @@
+// const player = new Player();
 const canvas = document.querySelector("canvas");
 const context = canvas.getContext("2d");
 
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-class Player {
-  constructor() {
-    this.velocity = {
-      x: 0,
-      y: 0,
-    };
-
-    const image = new Image();
-    image.src = "./images/spaceship.png";
-    image.onload = () => {
-      const scale = 0.18;
-      this.image = image;
-      this.width = image.width * scale;
-      this.height = image.height * scale;
-      this.position = {
-        x: canvas.width / 2 - this.width / 2,
-        y: canvas.height - this.height - 20,
-      };
-    };
+class Game {
+  constructor(canvas, context) {
+    this.player = new Player();
+    this.context = context;
+    this.canvas = canvas;
   }
 
-  draw() {
-    // context.fillStyle = "red";
-    // context.fillRect(this.position.x, this.position.y, this.width, this.height);
-    if (this.image) {
-      context.drawImage(
-        this.image,
-        this.position.x,
-        this.position.y,
-        this.width,
-        this.height
-      );
-    }
+  animate() {
+    requestAnimationFrame(() => this.animate());
+    this.context.fillStyle = "black";
+    this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
+    this.player.draw();
   }
 }
 
-const player = new Player();
+// function animate() {
+//   requestAnimationFrame(animate);
+//   context.fillStyle = "black";
+//   context.fillRect(0, 0, canvas.width, canvas.height);
+//   game.player.draw();
+//   // console.log(this.player);
+// }
 
-function animate() {
-  requestAnimationFrame(animate);
-  context.fillStyle = "black";
-  context.fillRect(0, 0, canvas.width, canvas.height);
-  player.draw();
-}
-
-animate();
+// window.addEventListener("load", () => {
+const game = new Game(canvas, context);
+game.animate();
+//   const newPlayer = new Player()
+// });

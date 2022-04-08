@@ -1,30 +1,35 @@
-// const canvas = document.querySelector("canvas");
-// const context = canvas.getContext("2d");
+class Player {
+  constructor() {
+    this.velocity = {
+      x: 0,
+      y: 0,
+    };
 
-// canvas.width = window.innerWidth;
-// canvas.height = window.innerHeight;
+    const image = new Image();
+    image.src = "./images/spaceship.png";
+    image.onload = () => {
+      const scale = 0.18;
+      this.image = image;
+      this.width = image.width * scale;
+      this.height = image.height * scale;
+      this.position = {
+        x: canvas.width / 2 - this.width / 2,
+        y: canvas.height - this.height - 20,
+      };
+    };
+  }
 
-// class Player {
-//   constructor() {
-//     this.position = {
-//       x: 200,
-//       y: 200,
-//     };
-//     this.velocity = {
-//       x: 0,
-//       y: 0,
-//     };
-//     // this.image =
-//     this.width = 100;
-//     this.height = 100;
-//   }
-
-//   draw() {
-//     context.fillStyle = "red";
-//     context.fillRect(this.position.x, this.position.y, this.width, this.height);
-//   }
-// }
-
-// const player = new Player();
-
-// player.draw();
+  draw() {
+    // context.fillStyle = "red";
+    // context.fillRect(this.position.x, this.position.y, this.width, this.height);
+    if (this.image) {
+      context.drawImage(
+        this.image,
+        this.position.x,
+        this.position.y,
+        this.width,
+        this.height
+      );
+    }
+  }
+}
