@@ -38,16 +38,17 @@ document.addEventListener("keydown", function (e) {
     game.createProjectiles(
       new Projectile({
         position: {
-          x: game.player.position.x,
+          x: game.player.position.x + game.player.width / 2,
           y: game.player.position.y,
         },
         velocity: {
           x: 0,
-          y: -9,
+          y: -5,
         },
       })
     );
     game.animateProjectile();
+    console.log(game.projectiles);
     values.space.pressed = true;
   }
 });

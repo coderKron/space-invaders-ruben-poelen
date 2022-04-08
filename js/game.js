@@ -9,14 +9,16 @@ class Game {
   }
 
   createProjectiles(value) {
-    this.projectiles.push({ value });
+    this.projectiles.push(value);
   }
 
   animateProjectile() {
     requestAnimationFrame(() => {
       this.animateProjectile();
     });
-    game.projectiles.forEach(projectile =>);
+    game.projectiles.forEach((projectile) => {
+      projectile.update();
+    });
   }
 
   animatePilot() {
