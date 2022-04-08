@@ -16,8 +16,12 @@ class Game {
     requestAnimationFrame(() => {
       this.animateProjectile();
     });
-    game.projectiles.forEach((projectile) => {
-      projectile.update();
+    game.projectiles.forEach((projectile, index) => {
+      if (projectile.position.y + projectile.radius <= 0) {
+        this.projectiles.splice(index, 1);
+      } else {
+        projectile.update();
+      }
     });
   }
 
