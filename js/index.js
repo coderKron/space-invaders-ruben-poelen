@@ -42,7 +42,7 @@ document.addEventListener("keydown", function (e) {
         },
         speed: {
           x: 0,
-          y: -5,
+          y: -10,
         },
       })
     );
@@ -66,7 +66,7 @@ document.addEventListener("keyup", ({ key }) => {
 
 window.addEventListener("load", () => {
   game.start();
-  game.animatePilot();
+  game.animate();
 });
 
 //setTimeout(() => {},0)
