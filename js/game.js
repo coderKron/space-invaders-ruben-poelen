@@ -1,7 +1,7 @@
 class Game {
   constructor() {
     this.player = null;
-    this.invader = new Invader();
+    this.grids = [new Grid()];
     this.projectiles = [];
   }
 
@@ -19,7 +19,6 @@ class Game {
     });
     context.fillStyle = "black";
     context.fillRect(0, 0, canvas.width, canvas.height);
-    this.updateInvader();
     this.updatePilot();
 
     game.projectiles.forEach((projectile, index) => {
@@ -28,6 +27,14 @@ class Game {
       } else {
         projectile.updateProjectile();
       }
+    });
+
+    this.grids.forEach((grid) => {
+      this.updateGrid();
+      grid.invaders.forEach((invader) => {
+        // this.updateInvader();
+        console.log(grid);
+      });
     });
 
     if (values.a.pressed && this.player.position.x >= 0) {
@@ -51,6 +58,8 @@ class Game {
       this.player.position.x += this.player.velocity.x;
     }
   }
+
+  updateGrid() {}
 
   updateInvader() {
     if (this.invader.image) {
