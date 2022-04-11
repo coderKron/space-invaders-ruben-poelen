@@ -8,11 +8,11 @@ class Game {
 
   start() {
     this.player = new Player();
+    game.animate();
   }
 
   createProjectiles(value) {
     this.projectiles.push(value);
-    console.log(this.grids);
   }
 
   animate() {
@@ -33,9 +33,8 @@ class Game {
 
     this.grids.forEach((grid) => {
       grid.updateGrid();
-      console.log(this.grids);
       grid.invaders.forEach((invader) => {
-        invader.updateInvader();
+        invader.updateInvader({ speed: grid.speed });
       });
     });
 

@@ -1,5 +1,5 @@
 class Invader {
-  constructor() {
+  constructor({ position }) {
     this.speed = {
       x: 0,
       y: 0,
@@ -8,13 +8,13 @@ class Invader {
     const image = new Image();
     image.src = "./images/invader.png";
     image.onload = () => {
-      const scale = 0.09;
+      const scale = 0.06;
       this.image = image;
       this.width = image.width * scale;
       this.height = image.height * scale;
       this.position = {
-        x: canvas.width / 2 - this.width / 2,
-        y: canvas.height / 2,
+        x: position.x,
+        y: position.y,
       };
     };
   }
@@ -29,10 +29,9 @@ class Invader {
     );
   }
 
-  updateInvader() {
+  updateInvader({ speed }) {
     this.draw();
-    this.invader.position.x += this.invader.speed.x;
-    this.invader.position.y += this.invader.speed.y;
-    console.log("hello");
+    this.position.x += speed.x;
+    this.position.y += speed.y;
   }
 }

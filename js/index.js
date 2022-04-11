@@ -66,7 +66,6 @@ document.addEventListener("keyup", ({ key }) => {
 
 window.addEventListener("load", () => {
   game.start();
-  game.animate();
 });
 
 //setTimeout(() => {},0)
