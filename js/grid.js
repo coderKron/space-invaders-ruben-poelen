@@ -5,7 +5,7 @@ class Grid {
       y: 0,
     };
     this.speed = {
-      x: 1.5,
+      x: 2,
       y: 0,
     };
 

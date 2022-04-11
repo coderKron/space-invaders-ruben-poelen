@@ -4,36 +4,13 @@ class Game {
     this.grids = [];
     this.projectiles = [];
     this.invader = [];
+    this.invaderProjectiles = [];
   }
 
   start() {
     this.player = new Player();
 
     game.animate();
-  }
-
-  createProjectiles() {
-    const intervalID = setInterval(() => {
-      if (
-        (values.space.pressed === true && values.a.pressed === true) ||
-        values.d.pressed === true
-      ) {
-        this.projectiles.push(
-          new Projectile({
-            position: {
-              x: game.player.position.x + game.player.width / 2,
-              y: game.player.position.y,
-            },
-            speed: {
-              x: 0,
-              y: -10,
-            },
-          })
-        );
-      } else if (values.space.pressed === false) {
-        clearInterval(intervalID);
-      }
-    }, 400);
   }
 
   animate() {
@@ -44,16 +21,45 @@ class Game {
     context.fillRect(0, 0, canvas.width, canvas.height);
     this.updatePilot();
 
+    this.invaderProjectiles.forEach((invaderProjectile, index) => {
+      if (
+        invaderProjectile.position.y + invaderProjectile.height >=
+        canvas.height
+      ) {
+        setTimeout(() => {
+          this.invaderProjectiles.splice(index, 1);
+        }, 0);
+      } else {
+        invaderProjectile.updateProjectile();
+      }
+    });
+
     this.projectiles.forEach((projectile, index) => {
       if (projectile.position.y + projectile.radius <= 0) {
         this.projectiles.splice(index, 1);
       } else {
         projectile.updateProjectile();
       }
+      if (
+        invaderProjectile.position.y + invaderProjectile.height >=
+        this.player.position.y
+      ) {
+        console.log("YOU LOST BITCH");
+      }
     });
 
-    this.grids.forEach((grid) => {
+    this.grids.forEach((grid, index) => {
       grid.updateGrid();
+
+      if (
+        amountOfAnimates % Math.floor(Math.random(500) + 250) === 0 &&
+        grid.invaders.length > 0
+      ) {
+        grid.invaders[
+          Math.floor(Math.random() * grid.invaders.length)
+        ].invaderShoot(this.invaderProjectiles);
+      }
+
       grid.invaders.forEach((invader, i) => {
         invader.updateInvader({ speed: grid.speed });
 
@@ -68,6 +74,19 @@ class Game {
           ) {
             grid.invaders.splice(i, 1);
             this.projectiles.splice(j, 1);
+
+            if (grid.invaders.length > 0) {
+              const firstInvader = grid.invaders[0];
+              const lastInvader = grid.invaders[grid.invaders.length - 1];
+
+              grid.width =
+                lastInvader.position.x -
+                firstInvader.position.x +
+                lastInvader.width;
+              grid.position.x = firstInvader.position.x;
+            } else {
+              this.grids.splice(index, 1);
+            }
           }
         });
       });
@@ -87,7 +106,10 @@ class Game {
       this.player.turn = 0;
     }
 
-    if (amountOfAnimates % 1000 === 0) {
+    if (
+      amountOfAnimates % Math.floor(Math.random(500) + 750) === 0 &&
+      this.grids.length <= 7
+    ) {
       game.grids.push(new Grid());
     }
     amountOfAnimates++;

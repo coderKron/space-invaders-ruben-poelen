@@ -3,10 +3,10 @@ const context = canvas.getContext("2d");
 
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
+const game = new Game();
 
 let amountOfAnimates = 0;
 
-const game = new Game();
 const values = {
   a: {
     pressed: false,
@@ -28,8 +28,6 @@ document.addEventListener("keydown", ({ key }) => {
       values.d.pressed = true;
       break;
     case " ":
-      game.createProjectiles();
-      values.space.pressed = true;
       game.projectiles.push(
         new Projectile({
           position: {

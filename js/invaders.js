@@ -34,4 +34,19 @@ class Invader {
     this.position.x += speed.x;
     this.position.y += speed.y;
   }
+
+  invaderShoot(invaderProjectiles) {
+    invaderProjectiles.push(
+      new InvaderProjectile({
+        position: {
+          x: this.position.x + this.width / 2,
+          y: this.position.y + this.height,
+        },
+        speed: {
+          x: 0,
+          y: 3,
+        },
+      })
+    );
+  }
 }

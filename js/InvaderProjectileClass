@@ -1,16 +1,14 @@
-class Projectile {
+class InvaderProjectile {
   constructor({ position, speed }) {
     this.position = position;
     this.speed = speed;
-    this.radius = 4;
+    this.width = 4;
+    this.height = 10;
   }
 
   drawProjectile() {
-    context.beginPath();
-    context.arc(this.position.x, this.position.y, this.radius, 0, Math.PI * 2);
-    context.fillStyle = "aqua";
-    context.fill();
-    context.closePath();
+    context.fillStyle = "pink";
+    context.fillRect(this.position.x, this.position.y, this.width, this.height);
   }
 
   updateProjectile() {
