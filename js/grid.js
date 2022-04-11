@@ -1,6 +1,6 @@
 class Grid {
   constructor() {
-    this.poistion = {
+    this.position = {
       x: 0,
       y: 0,
     };
@@ -12,7 +12,11 @@ class Grid {
     this.invaders = [];
 
     for (let i = 0; i < 10; i++) {
-      this.invaders.push([new Invader()]);
+      this.invaders.push(new Invader());
     }
+  }
+
+  updateGrid() {
+    // console.log("hello");
   }
 }

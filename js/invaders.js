@@ -1,6 +1,6 @@
 class Invader {
   constructor() {
-    this.velocity = {
+    this.speed = {
       x: 0,
       y: 0,
     };
@@ -27,5 +27,12 @@ class Invader {
       this.width,
       this.height
     );
+  }
+
+  updateInvader() {
+    this.draw();
+    this.invader.position.x += this.invader.speed.x;
+    this.invader.position.y += this.invader.speed.y;
+    console.log("hello");
   }
 }

@@ -3,6 +3,7 @@ class Game {
     this.player = null;
     this.grids = [new Grid()];
     this.projectiles = [];
+    this.invader = [];
   }
 
   start() {
@@ -11,6 +12,7 @@ class Game {
 
   createProjectiles(value) {
     this.projectiles.push(value);
+    console.log(this.grids);
   }
 
   animate() {
@@ -21,7 +23,7 @@ class Game {
     context.fillRect(0, 0, canvas.width, canvas.height);
     this.updatePilot();
 
-    game.projectiles.forEach((projectile, index) => {
+    this.projectiles.forEach((projectile, index) => {
       if (projectile.position.y + projectile.radius <= 0) {
         this.projectiles.splice(index, 1);
       } else {
@@ -30,10 +32,10 @@ class Game {
     });
 
     this.grids.forEach((grid) => {
-      this.updateGrid();
+      grid.updateGrid();
+      console.log(this.grids);
       grid.invaders.forEach((invader) => {
-        // this.updateInvader();
-        console.log(grid);
+        invader.updateInvader();
       });
     });
 
@@ -56,16 +58,6 @@ class Game {
     if (this.player.image) {
       this.player.draw();
       this.player.position.x += this.player.velocity.x;
-    }
-  }
-
-  updateGrid() {}
-
-  updateInvader() {
-    if (this.invader.image) {
-      this.invader.draw();
-      this.invader.position.x += this.invader.velocity.x;
-      this.invader.position.y += this.invader.velocity.y;
     }
   }
 }
