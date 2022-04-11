@@ -4,6 +4,8 @@ const context = canvas.getContext("2d");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
+let amountOfAnimates = 0;
+
 const game = new Game();
 const values = {
   a: {
@@ -25,28 +27,22 @@ document.addEventListener("keydown", ({ key }) => {
     case "d":
       values.d.pressed = true;
       break;
-  }
-});
-
-document.addEventListener("keydown", function (e) {
-  if (
-    e.keyCode === 32 &&
-    values.a.pressed === false &&
-    values.d.pressed === false
-  ) {
-    game.createProjectiles(
-      new Projectile({
-        position: {
-          x: game.player.position.x + game.player.width / 2,
-          y: game.player.position.y,
-        },
-        speed: {
-          x: 0,
-          y: -10,
-        },
-      })
-    );
-    values.space.pressed = true;
+    case " ":
+      game.createProjectiles();
+      values.space.pressed = true;
+      game.projectiles.push(
+        new Projectile({
+          position: {
+            x: game.player.position.x + game.player.width / 2,
+            y: game.player.position.y,
+          },
+          speed: {
+            x: 0,
+            y: -10,
+          },
+        })
+      );
+      break;
   }
 });
 
