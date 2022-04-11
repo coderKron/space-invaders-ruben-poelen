@@ -32,6 +32,12 @@ class Game {
       } else {
         invaderProjectile.updateProjectile();
       }
+      if (
+        invaderProjectile.position.y + invaderProjectile.height >=
+        this.player.position.y
+      ) {
+        console.log("YOU LOST BITCH");
+      }
     });
 
     this.projectiles.forEach((projectile, index) => {
@@ -39,12 +45,6 @@ class Game {
         this.projectiles.splice(index, 1);
       } else {
         projectile.updateProjectile();
-      }
-      if (
-        invaderProjectile.position.y + invaderProjectile.height >=
-        this.player.position.y
-      ) {
-        console.log("YOU LOST BITCH");
       }
     });
 
