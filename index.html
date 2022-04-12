@@ -6,9 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Space-Invaders</title>
     <link rel="stylesheet" href="./css/reset.css" />
+    <link rel="stylesheet" href="./css/main.css" />
   </head>
   <body>
-    <canvas></canvas>
+    <p id="scoreboard">
+      <span class="innertext"> Score: </span> <span class="scoreNumber">0</span>
+    </p>
+    <div>
+      <canvas></canvas>
+    </div>
     <script src="./js/game.js"></script>
     <script src="./js/player.js"></script>
     <script src="./js/grid.js"></script>

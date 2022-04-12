@@ -7,7 +7,7 @@ class InvaderProjectile {
   }
 
   drawProjectile() {
-    context.fillStyle = "pink";
+    context.fillStyle = "#ff0066";
     context.fillRect(this.position.x, this.position.y, this.width, this.height);
   }
 

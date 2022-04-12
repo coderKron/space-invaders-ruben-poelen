@@ -1,8 +1,9 @@
+const htmlElement = document.getElementsByClassName("scoreNumber");
 const canvas = document.querySelector("canvas");
 const context = canvas.getContext("2d");
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+canvas.width = 1366;
+canvas.height = 768;
 const game = new Game();
 
 let amountOfAnimates = 0;

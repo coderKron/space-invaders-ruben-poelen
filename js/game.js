@@ -11,6 +11,8 @@ class Game {
       over: false,
       active: false,
     };
+    this.score = 0;
+    this.elementHtml = document.querySelector("span.scoreNumber");
   }
 
   start() {
@@ -58,6 +60,11 @@ class Game {
     }
   }
 
+  updateScore() {
+    this.elementHtml.innerText = this.score;
+    console.log(this.elementHtml);
+  }
+
   animate() {
     if (!this.game.active)
       requestAnimationFrame(() => {
@@ -76,7 +83,6 @@ class Game {
         star.position.y = -star.radius;
       } else {
         star.updateStars();
-        console.log(this.stars);
       }
     });
     this.explosions.forEach((explosion, index) => {
@@ -158,10 +164,12 @@ class Game {
               invader.position.x + invader.width &&
             projectile.position.y + projectile.radius >= invader.position.y
           ) {
-            this.createExplosions(invader, "limegreen");
+            this.createExplosions(invader, "yellow");
             grid.invaders.splice(i, 1);
             this.projectiles.splice(j, 1);
-
+            this.score += 100;
+            console.log(this.score);
+            this.updateScore();
             if (grid.invaders.length > 0) {
               const firstInvader = grid.invaders[0];
               const lastInvader = grid.invaders[grid.invaders.length - 1];
