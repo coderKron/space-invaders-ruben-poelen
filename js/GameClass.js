@@ -21,6 +21,7 @@ class Game {
     this.toggleScreen("canvas", true);
     this.toggleScreen("scoreboard", true);
     this.toggleScreen("restart", false);
+    this.toggleScreen("logo", false);
     this.game.over = false;
     this.game.active = false;
     this.player = new Player();

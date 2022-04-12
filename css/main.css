@@ -23,8 +23,8 @@ body {
   color: white;
   margin-top: 1%;
   margin-left: 1%;
-  font-family: monospace;
-  font-size: 20px;
+  font-family: "ArcadeClassic", sans-serif;
+  font-size: 25px;
 }
 
 #start-screen {
@@ -49,6 +49,27 @@ body {
   color: white;
   margin-top: 1%;
   margin-left: 1%;
-  font-family: monospace;
-  font-size: 25px;
+  font-family: "ArcadeClassic", sans-serif;
+  font-size: 40px;
+}
+
+#reset-picture {
+  font-family: "ArcadeClassic", sans-serif;
+  font-size: 40px;
+}
+
+#reset-picture > img {
+  max-width: 200px;
+}
+#start-button {
+  border: 0 solid;
+  border-radius: 15%;
+}
+
+#logo {
+  border-radius: 15%;
+  transition: transform 0.2s;
+}
+#logo:hover {
+  transform: scale(1.2);
 }
