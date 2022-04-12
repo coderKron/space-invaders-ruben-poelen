@@ -1,10 +1,11 @@
 const htmlElement = document.getElementsByClassName("scoreNumber");
+const numScoreEle = document.getElementsByClassName("numScore");
 const canvas = document.querySelector("canvas");
 const context = canvas.getContext("2d");
+let game = new Game();
 
 canvas.width = 1366;
 canvas.height = 768;
-const game = new Game();
 
 let amountOfAnimates = 0;
 
@@ -62,8 +63,11 @@ document.addEventListener("keyup", ({ key }) => {
   }
 });
 
-window.addEventListener("load", () => {
+function startGame() {
   game.start();
-});
+}
 
-//setTimeout(() => {},0)
+function restartGame() {
+  game = new Game();
+  game.gameRestart();
+}

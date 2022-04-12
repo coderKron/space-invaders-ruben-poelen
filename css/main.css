@@ -13,9 +13,11 @@ body {
   justify-content: center;
   align-items: center;
   height: 100%;
+  background-image: url(../images/background.jpeg);
+  background-repeat: no-repeat;
 }
 
-p {
+#scoreboard {
   position: absolute;
   z-index: 10;
   color: white;
@@ -25,7 +27,28 @@ p {
   font-size: 20px;
 }
 
-div {
-  padding: 0;
-  margin: 0;
+#start-screen {
+  position: relative;
+}
+
+#canvas {
+  display: none;
+}
+
+#scoreboard {
+  display: none;
+}
+
+#restart {
+  display: none;
+}
+
+#points-gathered {
+  display: flex;
+  z-index: 10;
+  color: white;
+  margin-top: 1%;
+  margin-left: 1%;
+  font-family: monospace;
+  font-size: 25px;
 }

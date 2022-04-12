@@ -13,12 +13,45 @@ class Game {
     };
     this.score = 0;
     this.elementHtml = document.querySelector("span.scoreNumber");
+    this.numScore = document.querySelector("span.numScore");
   }
 
   start() {
+    this.toggleScreen("start-screen", false);
+    this.toggleScreen("canvas", true);
+    this.toggleScreen("scoreboard", true);
+    this.toggleScreen("restart", false);
+    this.game.over = false;
+    this.game.active = false;
     this.player = new Player();
-
     game.animate();
+  }
+
+  gameRestart() {
+    this.player = null;
+    this.grids = [];
+    this.projectiles = [];
+    this.invader = [];
+    this.invaderProjectiles = [];
+    this.explosions = [];
+    this.stars = [];
+    this.score = 0;
+    this.elementHtml.innerText = this.score;
+    this.start();
+  }
+
+  restartButton() {
+    console.log(this.score);
+    this.numScore.innerText = this.score;
+    this.toggleScreen("canvas", false);
+    this.toggleScreen("scoreboard", false);
+    this.toggleScreen("restart", true);
+  }
+
+  toggleScreen(id, toggle) {
+    let element = document.getElementById(id);
+    let display = toggle ? "block" : "none";
+    element.style.display = display;
   }
 
   createStars() {
@@ -124,6 +157,7 @@ class Game {
           this.invaderProjectiles.splice(index, 1);
           this.player.seeing = 0;
           this.game.over = true;
+          this.restartButton();
         }, 0);
         setTimeout(() => {
           this.game.active = true;
