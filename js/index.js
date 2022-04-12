@@ -20,6 +20,9 @@ const values = {
 };
 
 document.addEventListener("keydown", ({ key }) => {
+  if (game.game.over) {
+    return;
+  }
   switch (key) {
     case "a":
       values.a.pressed = true;

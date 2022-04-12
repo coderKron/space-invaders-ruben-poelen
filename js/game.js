@@ -5,6 +5,12 @@ class Game {
     this.projectiles = [];
     this.invader = [];
     this.invaderProjectiles = [];
+    this.explosions = [];
+    this.stars = [];
+    this.game = {
+      over: false,
+      active: false,
+    };
   }
 
   start() {
@@ -13,14 +19,77 @@ class Game {
     game.animate();
   }
 
+  createStars() {
+    for (let i = 0; i < 100; i++) {
+      this.stars.push(
+        new Stars({
+          position: {
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+          },
+          speed: {
+            x: 0,
+            y: 0.5,
+          },
+          radius: Math.random() * 2,
+          color: "white",
+          disappear: true,
+        })
+      );
+    }
+  }
+
+  createExplosions(element, color) {
+    for (let i = 0; i < 15; i++) {
+      this.explosions.push(
+        new Explosions({
+          position: {
+            x: element.position.x + element.width / 2,
+            y: element.position.y + element.height / 2,
+          },
+          speed: {
+            x: (Math.random() - 0.5) * 2,
+            y: (Math.random() - 0.5) * 2,
+          },
+          radius: Math.random() * 3,
+          color: color,
+        })
+      );
+    }
+  }
+
   animate() {
-    requestAnimationFrame(() => {
-      this.animate();
-    });
+    if (!this.game.active)
+      requestAnimationFrame(() => {
+        this.animate();
+      });
     context.fillStyle = "black";
     context.fillRect(0, 0, canvas.width, canvas.height);
     this.updatePilot();
 
+    if (this.stars.length < 100) {
+      this.createStars();
+    }
+    this.stars.forEach((star, index) => {
+      if (star.position.y - star.radius >= canvas.height) {
+        star.position.x = Math.random() * canvas.width;
+        star.position.y = -star.radius;
+      } else {
+        star.updateStars();
+        console.log(this.stars);
+      }
+    });
+    this.explosions.forEach((explosion, index) => {
+      if (explosion.shineThrough <= 0) {
+        setTimeout(() => {
+          this.explosions.splice(index, 1);
+        }, 0);
+      } else {
+        explosion.updateExplosion();
+      }
+    });
+
+    //killing stuff
     this.invaderProjectiles.forEach((invaderProjectile, index) => {
       if (
         invaderProjectile.position.y + invaderProjectile.height >=
@@ -34,9 +103,26 @@ class Game {
       }
       if (
         invaderProjectile.position.y + invaderProjectile.height >=
-        this.player.position.y
+          this.player.position.y &&
+        invaderProjectile.position.x + invaderProjectile.width >=
+          this.player.position.x &&
+        invaderProjectile.position.x <=
+          this.player.position.x + this.player.width
       ) {
-        console.log("YOU LOST BITCH");
+        setTimeout(() => {
+          this.invaderProjectiles.splice(index, 1);
+        }, 0);
+
+        console.log("YOU LOST");
+        setTimeout(() => {
+          this.invaderProjectiles.splice(index, 1);
+          this.player.seeing = 0;
+          this.game.over = true;
+        }, 0);
+        setTimeout(() => {
+          this.game.active = true;
+        }, 2000);
+        this.createExplosions(this.player, "red");
       }
     });
 
@@ -72,6 +158,7 @@ class Game {
               invader.position.x + invader.width &&
             projectile.position.y + projectile.radius >= invader.position.y
           ) {
+            this.createExplosions(invader, "limegreen");
             grid.invaders.splice(i, 1);
             this.projectiles.splice(j, 1);
 

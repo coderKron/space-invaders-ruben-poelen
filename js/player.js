@@ -5,6 +5,7 @@ class Player {
       y: 0,
     };
     this.turn = 0;
+    this.seeing = 1;
 
     const image = new Image();
     image.src = "./images/spaceship.png";
@@ -22,6 +23,7 @@ class Player {
 
   draw() {
     context.save();
+    context.globalAlpha = this.seeing;
     context.translate(
       game.player.position.x + game.player.width / 2,
       game.player.position.y + game.player.height / 2
