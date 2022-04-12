@@ -82,3 +82,7 @@ body {
 #logo:hover {
   transform: scale(1.2);
 }
+
+canvas {
+  border-radius: 5%;
+}
