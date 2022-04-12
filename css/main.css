@@ -1,16 +1,31 @@
-body div {
+* {
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  height: 100%;
+}
+
+body {
   margin: 0;
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100%;
 }
 
 p {
-  position: fixed;
+  position: absolute;
   z-index: 10;
   color: white;
   margin-top: 1%;
   margin-left: 1%;
   font-family: monospace;
   font-size: 20px;
+}
+
+div {
+  padding: 0;
+  margin: 0;
 }
