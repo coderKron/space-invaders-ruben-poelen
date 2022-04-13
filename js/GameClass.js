@@ -14,6 +14,7 @@ class Game {
     this.score = 0;
     this.elementHtml = document.querySelector("span.scoreNumber");
     this.numScore = document.querySelector("span.numScore");
+    this.powerUps = [];
   }
 
   start() {
@@ -96,7 +97,6 @@ class Game {
 
   updateScore() {
     this.elementHtml.innerText = this.score;
-    console.log(this.elementHtml);
   }
 
   animate() {
@@ -108,6 +108,15 @@ class Game {
     context.fillRect(0, 0, canvas.width, canvas.height);
     this.updatePilot();
 
+    for (let i = this.powerUps.length - 1; i >= 0; i--) {
+      const powerUp = this.powerUps[i];
+      if (powerUp.position.x - powerUp.radius >= canvas.width) {
+        this.powerUps.splice(i, 1);
+      } else {
+        powerUp.updatePowerUpBullet();
+      }
+    }
+    console.log(this.powerUps);
     if (this.stars.length < 100) {
       this.createStars();
     }
@@ -129,6 +138,47 @@ class Game {
       }
     });
 
+    if (
+      values.space.pressed === true &&
+      this.player.powerUp === "MachineGun" &&
+      amountOfAnimates % 2 === 0
+    ) {
+      this.projectiles.push(
+        new Projectile({
+          position: {
+            x: game.player.position.x + game.player.width / 2,
+            y: game.player.position.y,
+          },
+          speed: {
+            x: 0,
+            y: -10,
+          },
+          color: "red",
+        })
+      );
+    }
+
+    for (let i = this.powerUps.length - 1; i >= 0; i--) {
+      const powerUp = this.powerUps[i];
+      this.projectiles.forEach((projectile, index) => {
+        if (
+          Math.hypot(
+            projectile.position.x - powerUp.position.x,
+            projectile.position.y - powerUp.position.y
+          ) <
+          projectile.radius + powerUp.radius
+        ) {
+          this.projectiles.splice(index, 1);
+          this.powerUps.splice(i, 1);
+          this.player.powerUp = "MachineGun";
+          console.log("powerup started");
+          setTimeout(() => {
+            this.player.powerUp = null;
+            console.log("powerup ended");
+          }, 5000);
+        }
+      });
+    }
     //killing stuff
     this.invaderProjectiles.forEach((invaderProjectile, index) => {
       if (
@@ -203,7 +253,6 @@ class Game {
             grid.invaders.splice(i, 1);
             this.projectiles.splice(j, 1);
             this.score += 100;
-            console.log(this.score);
             this.updateScore();
             if (grid.invaders.length > 0) {
               const firstInvader = grid.invaders[0];
@@ -237,12 +286,31 @@ class Game {
     }
 
     if (
-      amountOfAnimates % Math.floor(Math.random(500) + 750) === 0 &&
-      this.grids.length <= 7
+      amountOfAnimates % Math.floor(Math.random() * 500 + 500) === 0 &&
+      this.grids.length <= 12
     ) {
-      game.grids.push(new Grid());
+      this.grids.push(new Grid());
+      console.log(amountOfAnimates);
+      amountOfAnimates = 0;
     }
+
+    if (amountOfAnimates % 500 === 0) {
+      this.powerUps.push(
+        new PowerUp({
+          position: {
+            x: 0,
+            y: Math.random() * 300,
+          },
+          speed: {
+            x: 5,
+            y: 0,
+          },
+        })
+      );
+    }
+
     amountOfAnimates++;
+    console.log(amountOfAnimates);
   }
 
   updatePilot() {

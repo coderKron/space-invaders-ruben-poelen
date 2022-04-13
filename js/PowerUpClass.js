@@ -1,21 +1,20 @@
-class Projectile {
-  constructor({ position, speed, color = "aqua" }) {
+class PowerUp {
+  constructor({ position, speed }) {
     this.position = position;
     this.speed = speed;
-    this.radius = 4;
-    this.color = color;
+    this.radius = 20;
   }
 
-  drawProjectile() {
+  drawPowerUpBullet() {
     context.beginPath();
     context.arc(this.position.x, this.position.y, this.radius, 0, Math.PI * 2);
-    context.fillStyle = this.color;
+    context.fillStyle = "pink";
     context.fill();
     context.closePath();
   }
 
-  updateProjectile() {
-    this.drawProjectile();
+  updatePowerUpBullet() {
+    this.drawPowerUpBullet();
     this.position.x += this.speed.x;
     this.position.y += this.speed.y;
   }

@@ -6,6 +6,7 @@ class Player {
     };
     this.turn = 0;
     this.seeing = 1;
+    this.powerUp = null;
 
     const image = new Image();
     image.src = "./images/spaceship.png";
