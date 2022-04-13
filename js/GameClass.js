@@ -18,6 +18,10 @@ class Game {
   }
 
   start() {
+    values.a.pressed = false;
+    values.d.pressed = false;
+    values.space.pressed = false;
+    amountOfAnimates = 0;
     this.toggleScreen("start-screen", false);
     this.toggleScreen("canvas", true);
     this.toggleScreen("scoreboard", true);
@@ -37,13 +41,13 @@ class Game {
     this.invaderProjectiles = [];
     this.explosions = [];
     this.stars = [];
+    this.powerUps = [];
     this.score = 0;
     this.elementHtml.innerText = this.score;
     this.start();
   }
 
   restartButton() {
-    console.log(this.score);
     this.numScore.innerText = this.score;
     this.toggleScreen("canvas", false);
     this.toggleScreen("scoreboard", false);
@@ -116,7 +120,6 @@ class Game {
         powerUp.updatePowerUpBullet();
       }
     }
-    console.log(this.powerUps);
     if (this.stars.length < 100) {
       this.createStars();
     }
@@ -171,10 +174,8 @@ class Game {
           this.projectiles.splice(index, 1);
           this.powerUps.splice(i, 1);
           this.player.powerUp = "MachineGun";
-          console.log("powerup started");
           setTimeout(() => {
             this.player.powerUp = null;
-            console.log("powerup ended");
           }, 5000);
         }
       });
@@ -212,7 +213,7 @@ class Game {
         }, 0);
         setTimeout(() => {
           this.game.active = true;
-        }, 2000);
+        }, 500);
         this.createExplosions(this.player, "red");
       }
     });
@@ -285,21 +286,21 @@ class Game {
       this.player.turn = 0;
     }
 
-    if (
-      amountOfAnimates % Math.floor(Math.random() * 500 + 500) === 0 &&
-      this.grids.length <= 12
-    ) {
+    if (amountOfAnimates % Math.floor(Math.random() * 350 + 500) === 0) {
       this.grids.push(new Grid());
-      console.log(amountOfAnimates);
       amountOfAnimates = 0;
     }
 
-    if (amountOfAnimates % 500 === 0) {
+    if (
+      amountOfAnimates % Math.floor(Math.random() * 200 + 501) === 0 &&
+      this.player.powerUp === null &&
+      this.powerUps.length === 0
+    ) {
       this.powerUps.push(
         new PowerUp({
           position: {
             x: 0,
-            y: Math.random() * 300,
+            y: Math.random() * 300 + 15,
           },
           speed: {
             x: 5,

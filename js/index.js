@@ -63,6 +63,7 @@ document.addEventListener("keydown", ({ key }) => {
 });
 
 document.addEventListener("keyup", ({ key }) => {
+  if (game.game.over) return;
   switch (key) {
     case "a":
       values.a.pressed = false;
