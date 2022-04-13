@@ -35,7 +35,7 @@ class Grid {
     this.speed.y = 0;
 
     if (this.position.x + this.width >= canvas.width || this.position.x <= 0) {
-      this.speed.x = -this.speed.x;
+      this.speed.x = -this.speed.x * 1.05;
       this.speed.y = 30;
     }
   }

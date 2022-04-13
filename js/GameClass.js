@@ -15,6 +15,7 @@ class Game {
     this.elementHtml = document.querySelector("span.scoreNumber");
     this.numScore = document.querySelector("span.numScore");
     this.powerUps = [];
+    this.spawnTimer = 500;
   }
 
   start() {
@@ -229,6 +230,17 @@ class Game {
     this.grids.forEach((grid, index) => {
       grid.updateGrid();
 
+      if (grid.position.y + 30 > canvas.height) {
+        setTimeout(() => {
+          this.player.seeing = 0;
+          this.game.over = true;
+          this.restartButton();
+        }, 0);
+        setTimeout(() => {
+          this.game.active = true;
+        }, 500);
+      }
+
       if (
         amountOfAnimates % Math.floor(Math.random(500) + 250) === 0 &&
         grid.invaders.length > 0
@@ -286,9 +298,15 @@ class Game {
       this.player.turn = 0;
     }
 
-    if (amountOfAnimates % Math.floor(Math.random() * 350 + 500) === 0) {
+    if (
+      amountOfAnimates % Math.floor(Math.random() * 500 + this.spawnTimer) ===
+      0
+    ) {
+      console.log(this.spawnTimer);
+      this.spawnTimer = this.spawnTimer < 100 ? 100 : this.spawnTimer;
       this.grids.push(new Grid());
       amountOfAnimates = 0;
+      this.spawnTimer -= 10;
     }
 
     if (

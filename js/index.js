@@ -33,32 +33,33 @@ function restartGame() {
 document.addEventListener("keydown", ({ key }) => {
   if (game.game.over) {
     return;
-  }
-  switch (key) {
-    case "a":
-      values.a.pressed = true;
-      break;
-    case "d":
-      values.d.pressed = true;
-      break;
-    case " ":
-      values.space.pressed = true;
-      if (game.player.powerUp === "MachineGun") return;
-      else {
-        game.projectiles.push(
-          new Projectile({
-            position: {
-              x: game.player.position.x + game.player.width / 2,
-              y: game.player.position.y,
-            },
-            speed: {
-              x: 0,
-              y: -10,
-            },
-          })
-        );
+  } else if (!game.game.over) {
+    switch (key) {
+      case "a":
+        values.a.pressed = true;
         break;
-      }
+      case "d":
+        values.d.pressed = true;
+        break;
+      case " ":
+        values.space.pressed = true;
+        if (game.player.powerUp === "MachineGun") return;
+        else {
+          game.projectiles.push(
+            new Projectile({
+              position: {
+                x: game.player.position.x + game.player.width / 2,
+                y: game.player.position.y,
+              },
+              speed: {
+                x: 0,
+                y: -10,
+              },
+            })
+          );
+          break;
+        }
+    }
   }
 });
 
