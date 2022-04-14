@@ -16,6 +16,8 @@ class Game {
     this.numScore = document.querySelector("span.numScore");
     this.powerUps = [];
     this.spawnTimer = 500;
+    this.lives = 3;
+    this.lifeImage = null;
   }
 
   start() {
@@ -24,10 +26,10 @@ class Game {
     values.space.pressed = false;
     amountOfAnimates = 0;
     this.toggleScreen("start-screen", false);
+    this.toggleScreen("logo", false);
     this.toggleScreen("canvas", true);
     this.toggleScreen("scoreboard", true);
     this.toggleScreen("restart", false);
-    this.toggleScreen("logo", false);
     this.game.over = false;
     this.game.active = false;
     this.player = new Player();
@@ -44,6 +46,7 @@ class Game {
     this.stars = [];
     this.powerUps = [];
     this.score = 0;
+    this.lives = 3;
     this.elementHtml.innerText = this.score;
     this.start();
   }
@@ -104,6 +107,16 @@ class Game {
     this.elementHtml.innerText = this.score;
   }
 
+  updateLives() {
+    context.fillStyle = "white";
+    context.font = "25px ArcadeClassic";
+    context.textBaseline = "top";
+    context.fillText(`${this.lives}`, 1200, 20);
+    const heartImage = new Image();
+    heartImage.src = "../images/lives.png";
+    context.drawImage(heartImage, 1180, 25, 20, 20);
+  }
+
   animate() {
     if (!this.game.active)
       requestAnimationFrame(() => {
@@ -112,6 +125,7 @@ class Game {
     context.fillStyle = "black";
     context.fillRect(0, 0, canvas.width, canvas.height);
     this.updatePilot();
+    this.updateLives();
 
     for (let i = this.powerUps.length - 1; i >= 0; i--) {
       const powerUp = this.powerUps[i];
@@ -205,17 +219,23 @@ class Game {
           this.invaderProjectiles.splice(index, 1);
         }, 0);
 
-        console.log("YOU LOST");
-        setTimeout(() => {
-          this.invaderProjectiles.splice(index, 1);
-          this.player.seeing = 0;
-          this.game.over = true;
-          this.restartButton();
-        }, 0);
-        setTimeout(() => {
-          this.game.active = true;
-        }, 500);
-        this.createExplosions(this.player, "red");
+        if (this.lives < 1) {
+          setTimeout(() => {
+            this.invaderProjectiles.splice(index, 1);
+            this.player.seeing = 0;
+            this.game.over = true;
+            this.restartButton();
+          }, 0);
+          setTimeout(() => {
+            this.game.active = true;
+          }, 500);
+          this.createExplosions(this.player, "red");
+        } else if (this.lives > 0) {
+          setTimeout(() => {
+            this.lives--;
+          }, 0);
+          this.createExplosions(this.player, "red");
+        }
       }
     });
 
