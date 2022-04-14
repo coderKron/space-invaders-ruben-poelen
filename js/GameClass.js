@@ -11,13 +11,14 @@ class Game {
       over: false,
       active: false,
     };
-    this.score = 0;
+    this.score = 50000;
     this.elementHtml = document.querySelector("span.scoreNumber");
     this.numScore = document.querySelector("span.numScore");
     this.powerUps = [];
     this.spawnTimer = 500;
     this.lives = 3;
     this.lifeImage = null;
+    this.projectileSpawnTimer = 500;
   }
 
   start() {
@@ -262,12 +263,25 @@ class Game {
       }
 
       if (
-        amountOfAnimates % Math.floor(Math.random(500) + 250) === 0 &&
+        amountOfAnimates %
+          Math.floor(Math.random() * 500 + this.projectileSpawnTimer) ===
+          0 &&
         grid.invaders.length > 0
       ) {
         grid.invaders[
           Math.floor(Math.random() * grid.invaders.length)
         ].invaderShoot(this.invaderProjectiles);
+        this.projectileSpawnTimer =
+          this.projectileSpawnTimer < 200 ? 200 : this.projectileSpawnTimer;
+        if (this.score < 20000) {
+          this.projectileSpawnTimer -= 5;
+        } else if (this.score > 20000 && this.score < 30000) {
+          this.projectileSpawnTimer -= 10;
+        } else if (this.score > 30000 && this.score < 50000) {
+          this.projectileSpawnTimer -= 20;
+        } else if (this.score > 50000) {
+          this.projectileSpawnTimer -= 50;
+        }
       }
 
       grid.invaders.forEach((invader, i) => {
@@ -322,11 +336,20 @@ class Game {
       amountOfAnimates % Math.floor(Math.random() * 500 + this.spawnTimer) ===
       0
     ) {
-      console.log(this.spawnTimer);
       this.spawnTimer = this.spawnTimer < 100 ? 100 : this.spawnTimer;
       this.grids.push(new Grid());
-      amountOfAnimates = 0;
-      this.spawnTimer -= 10;
+      if (amountOfAnimates > 1000) {
+        amountOfAnimates = 0;
+      }
+      if (this.score < 20000) {
+        this.spawnTimer -= 10;
+      } else if (this.score > 20000 && this.score < 30000) {
+        this.spawnTimer -= 20;
+      } else if (this.score > 30000 && this.score < 50000) {
+        this.spawnTimer -= 50;
+      } else if (this.score > 50000) {
+        this.spawnTimer -= 100;
+      }
     }
 
     if (

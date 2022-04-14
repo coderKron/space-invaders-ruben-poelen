@@ -14,6 +14,7 @@ html {
 
 body {
   margin: 0;
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -90,4 +91,21 @@ body {
 
 canvas {
   border-radius: 5%;
+}
+
+#explained {
+  position: fixed;
+  display: none;
+}
+
+#explained > .howto {
+  font-family: "ArcadeClassic";
+  font-size: 25px;
+  color: white;
+  list-style: none;
+}
+
+.howto > li {
+  justify-content: center;
+  text-align: center;
 }

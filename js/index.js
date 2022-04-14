@@ -23,6 +23,10 @@ const values = {
 
 function startGame() {
   game.start();
+  game.toggleScreen("explained", true);
+  setTimeout(() => {
+    game.toggleScreen("explained", false);
+  }, 3000);
 }
 
 function restartGame() {
