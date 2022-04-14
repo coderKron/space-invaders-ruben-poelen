@@ -350,11 +350,11 @@ class Game {
       this.spawnTimer = this.spawnTimer < 100 ? 100 : this.spawnTimer;
       this.grids.push(new Grid());
       if (this.score < 20000) {
-        this.spawnTimer -= 0;
-      } else if (this.score > 20000 && this.score < 30000) {
         this.spawnTimer -= 10;
+      } else if (this.score > 20000 && this.score < 30000) {
+        this.spawnTimer -= 15;
       } else if (this.score > 30000 && this.score < 50000) {
-        this.spawnTimer -= 20;
+        this.spawnTimer -= 30;
       } else if (this.score > 50000) {
         this.spawnTimer -= 75;
       }
@@ -379,7 +379,7 @@ class Game {
       );
     }
     if (amountOfAnimates > 1000) {
-      amountOfAnimates = 1;
+      amountOfAnimates = 0;
     }
     amountOfAnimates++;
   }
