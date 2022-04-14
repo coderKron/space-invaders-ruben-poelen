@@ -11,7 +11,7 @@ class Game {
       over: false,
       active: false,
     };
-    this.score = 1;
+    this.score = 0;
     this.elementHtml = document.querySelector("span.scoreNumber");
     this.numScore = document.querySelector("span.numScore");
     this.powerUps = [];
