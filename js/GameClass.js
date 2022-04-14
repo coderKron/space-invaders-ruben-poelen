@@ -17,7 +17,7 @@ class Game {
     this.powerUps = [];
     this.spawnTimer = 500;
     this.lives = 3;
-    this.projectileSpawnTimer = 500;
+    this.projectileSpawnTimer = 750;
   }
 
   start() {
@@ -201,10 +201,14 @@ class Game {
         ) {
           this.projectiles.splice(index, 1);
           this.powerUps.splice(i, 1);
-          this.player.powerUp = "MachineGun";
-          setTimeout(() => {
-            this.player.powerUp = null;
-          }, 5000);
+          if (this.score < 100000) {
+            this.player.powerUp = "MachineGun";
+            setTimeout(() => {
+              this.player.powerUp = null;
+            }, 5000);
+          } else if (this.score > 100000) {
+            this.player.powerUp = "MachineGun";
+          }
         }
       });
     }
@@ -275,7 +279,7 @@ class Game {
 
       if (
         amountOfAnimates %
-          Math.floor(Math.random() * 500 + this.projectileSpawnTimer) ===
+          Math.floor(Math.random(250) + this.projectileSpawnTimer) ===
           0 &&
         grid.invaders.length > 0
       ) {
@@ -283,7 +287,7 @@ class Game {
           Math.floor(Math.random() * grid.invaders.length)
         ].invaderShoot(this.invaderProjectiles);
         this.projectileSpawnTimer =
-          this.projectileSpawnTimer < 200 ? 200 : this.projectileSpawnTimer;
+          this.projectileSpawnTimer < 200 ? 250 : this.projectileSpawnTimer;
         if (this.score < 20000) {
           this.projectileSpawnTimer -= 5;
         } else if (this.score > 20000 && this.score < 30000) {
@@ -291,7 +295,7 @@ class Game {
         } else if (this.score > 30000 && this.score < 50000) {
           this.projectileSpawnTimer -= 20;
         } else if (this.score > 50000) {
-          this.projectileSpawnTimer -= 50;
+          this.projectileSpawnTimer -= 35;
         }
       }
 
@@ -347,15 +351,15 @@ class Game {
       amountOfAnimates % Math.floor(Math.random(500) + this.spawnTimer) ===
       0
     ) {
-      this.spawnTimer = this.spawnTimer < 100 ? 100 : this.spawnTimer;
+      this.spawnTimer = this.spawnTimer < 150 ? 200 : this.spawnTimer;
       this.grids.push(new Grid());
       if (this.score < 20000) {
         this.spawnTimer -= 10;
-      } else if (this.score > 20000 && this.score < 30000) {
+      } else if (this.score > 20000 && this.score < 50000) {
         this.spawnTimer -= 15;
-      } else if (this.score > 30000 && this.score < 50000) {
+      } else if (this.score > 50000 && this.score < 75000) {
         this.spawnTimer -= 30;
-      } else if (this.score > 50000) {
+      } else if (this.score > 75000) {
         this.spawnTimer -= 75;
       }
     }
