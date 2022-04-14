@@ -114,7 +114,7 @@ class Game {
     context.textBaseline = "top";
     context.fillText(`${this.lives}`, 1200, 20);
     const heartImage = new Image();
-    heartImage.src = "./images/lives.png";
+    heartImage.src = "../images/health.png";
     context.drawImage(heartImage, 1180, 25, 20, 20);
   }
 
