@@ -344,7 +344,7 @@ class Game {
     }
 
     if (
-      amountOfAnimates % Math.floor(Math.random() * 500 + this.spawnTimer) ===
+      amountOfAnimates % Math.floor(Math.random(500) + this.spawnTimer) ===
       0
     ) {
       this.spawnTimer = this.spawnTimer < 100 ? 100 : this.spawnTimer;
@@ -361,7 +361,7 @@ class Game {
     }
 
     if (
-      amountOfAnimates % Math.floor(Math.random() * 200 + 500) === 0 &&
+      amountOfAnimates % Math.floor(Math.random(200) + 500) === 0 &&
       this.player.powerUp === null &&
       this.powerUps.length === 0
     ) {
@@ -382,6 +382,7 @@ class Game {
       amountOfAnimates = 0;
     }
     amountOfAnimates++;
+    console.log(amountOfAnimates);
   }
 
   updatePilot() {
