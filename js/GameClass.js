@@ -58,6 +58,17 @@ class Game {
     this.toggleScreen("restart", true);
   }
 
+  pauseGame() {
+    if (this.game.active === false) {
+      this.game.active = true;
+      this.toggleScreen("explained", true);
+    } else if (this.game.active === true) {
+      this.game.active = false;
+      this.toggleScreen("explained", false);
+      this.animate();
+    }
+  }
+
   toggleScreen(id, toggle) {
     let element = document.getElementById(id);
     let display = toggle ? "block" : "none";
@@ -112,6 +123,8 @@ class Game {
     context.font = "25px ArcadeClassic";
     context.textBaseline = "top";
     context.fillText(`LIVES: ${this.lives}`, 1201, 20);
+    context.fillText(`P: PAUSE`, 1200, 40);
+    context.fillText(`P: CONTROLS`, 1200, 60);
     // const heartImage = new Image();
     // heartImage.src = "./jsImage/health.png";
     // context.drawImage(heartImage, 1180, 25, 20, 20);
@@ -249,8 +262,8 @@ class Game {
 
     this.grids.forEach((grid, index) => {
       grid.updateGrid();
-
-      if (grid.position.y + 30 > canvas.height) {
+      const lastInvader = grid.invaders[grid.invaders.length - 1];
+      if (lastInvader.position.y > canvas.height) {
         setTimeout(() => {
           this.player.seeing = 0;
           this.game.over = true;
@@ -258,7 +271,7 @@ class Game {
         }, 0);
         setTimeout(() => {
           this.game.active = true;
-        }, 500);
+        }, 100);
       }
 
       if (
@@ -337,22 +350,19 @@ class Game {
     ) {
       this.spawnTimer = this.spawnTimer < 100 ? 100 : this.spawnTimer;
       this.grids.push(new Grid());
-      if (amountOfAnimates > 1000) {
-        amountOfAnimates = 0;
-      }
       if (this.score < 20000) {
-        this.spawnTimer -= 10;
+        this.spawnTimer -= 0;
       } else if (this.score > 20000 && this.score < 30000) {
-        this.spawnTimer -= 20;
+        this.spawnTimer -= 10;
       } else if (this.score > 30000 && this.score < 50000) {
-        this.spawnTimer -= 50;
+        this.spawnTimer -= 20;
       } else if (this.score > 50000) {
-        this.spawnTimer -= 100;
+        this.spawnTimer -= 75;
       }
     }
 
     if (
-      amountOfAnimates % Math.floor(Math.random() * 200 + 501) === 0 &&
+      amountOfAnimates % Math.floor(Math.random() * 200 + 500) === 0 &&
       this.player.powerUp === null &&
       this.powerUps.length === 0
     ) {
@@ -369,8 +379,11 @@ class Game {
         })
       );
     }
-
+    if (amountOfAnimates > 1000) {
+      amountOfAnimates = 1;
+    }
     amountOfAnimates++;
+    console.log(amountOfAnimates);
   }
 
   updatePilot() {

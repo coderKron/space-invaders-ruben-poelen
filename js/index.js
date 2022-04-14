@@ -19,6 +19,9 @@ const values = {
   space: {
     pressed: false,
   },
+  p: {
+    pressed: false,
+  },
 };
 
 function startGame() {
@@ -34,6 +37,38 @@ function restartGame() {
   game.gameRestart();
 }
 
+function toggleScreen(id, toggle) {
+  let element = document.getElementById(id);
+  let display = toggle ? "block" : "none";
+  element.style.display = display;
+}
+
+document.addEventListener("keydown", function (event) {
+  const keyCode = event.keyCode;
+  switch (keyCode) {
+    case 80:
+      console.log("hello");
+      values.p.pressed = true;
+      game.pauseGame();
+      console.log(game.game.active);
+      break;
+  }
+});
+
+document.addEventListener("keydown", function (event) {
+  const keyCode = event.keyCode;
+  if (values.a.pressed === false || values.d.pressed === false) {
+    switch (keyCode) {
+      case 37:
+        values.a.pressed = true;
+        break;
+      case 39:
+        values.d.pressed = true;
+        break;
+    }
+  }
+});
+
 document.addEventListener("keydown", ({ key }) => {
   if (game.game.over) {
     return;
@@ -43,6 +78,12 @@ document.addEventListener("keydown", ({ key }) => {
         values.a.pressed = true;
         break;
       case "d":
+        values.d.pressed = true;
+        break;
+      case "A":
+        values.a.pressed = true;
+        break;
+      case "D":
         values.d.pressed = true;
         break;
       case " ":
@@ -78,6 +119,25 @@ document.addEventListener("keyup", ({ key }) => {
       break;
     case " ":
       values.space.pressed = false;
+      break;
+    case "A":
+      values.a.pressed = false;
+      break;
+    case "D":
+      values.d.pressed = false;
+      break;
+  }
+});
+
+document.addEventListener("keyup", function (e) {
+  if (game.game.over) return;
+  const keyCode = e.keyCode;
+  switch (keyCode) {
+    case 37:
+      values.a.pressed = false;
+      break;
+    case 39:
+      values.d.pressed = false;
       break;
   }
 });
