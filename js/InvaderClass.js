@@ -1,12 +1,12 @@
 class Invader {
-  constructor({ position }) {
+  constructor({ position }, imageLink) {
     this.speed = {
       x: 0,
       y: 0,
     };
 
     const image = new Image();
-    image.src = "./images/invader.png";
+    image.src = imageLink;
     image.onload = () => {
       const scale = 0.06;
       this.image = image;

@@ -8,7 +8,14 @@ class Grid {
       x: 3,
       y: 0,
     };
-
+    this.images = [
+      "./images/invader.png",
+      "./images/invader2.png",
+      "./images/invader3.png",
+      "./images/invader4.png",
+    ];
+    this.randomValue =
+      this.images[Math.floor(Math.random() * this.images.length)];
     this.invaders = [];
     const amountOfRows = Math.floor(Math.random() * 5 + 2);
     const amountOfColumns = Math.floor(Math.random() * 10 + 5);
@@ -18,12 +25,15 @@ class Grid {
     for (let i = 0; i < amountOfColumns; i++) {
       for (let y = 0; y < amountOfRows; y++) {
         this.invaders.push(
-          new Invader({
-            position: {
-              x: i * 30,
-              y: y * 30,
+          new Invader(
+            {
+              position: {
+                x: i * 30,
+                y: y * 30,
+              },
             },
-          })
+            this.randomValue
+          )
         );
       }
     }

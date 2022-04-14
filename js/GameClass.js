@@ -383,7 +383,6 @@ class Game {
       amountOfAnimates = 1;
     }
     amountOfAnimates++;
-    console.log(amountOfAnimates);
   }
 
   updatePilot() {
