@@ -17,7 +17,6 @@ class Game {
     this.powerUps = [];
     this.spawnTimer = 500;
     this.lives = 3;
-    this.lifeImage = null;
     this.projectileSpawnTimer = 500;
   }
 
@@ -112,10 +111,10 @@ class Game {
     context.fillStyle = "white";
     context.font = "25px ArcadeClassic";
     context.textBaseline = "top";
-    context.fillText(`${this.lives}`, 1200, 20);
-    const heartImage = new Image();
-    heartImage.src = "./jsImage/health.png";
-    context.drawImage(heartImage, 1180, 25, 20, 20);
+    context.fillText(`LIVES: ${this.lives}`, 1200, 20);
+    // const heartImage = new Image();
+    // heartImage.src = "./jsImage/health.png";
+    // context.drawImage(heartImage, 1180, 25, 20, 20);
   }
 
   animate() {
