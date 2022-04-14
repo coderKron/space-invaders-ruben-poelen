@@ -262,8 +262,7 @@ class Game {
 
     this.grids.forEach((grid, index) => {
       grid.updateGrid();
-      const lastInvader = grid.invaders[grid.invaders.length - 1];
-      if (lastInvader.position.y > canvas.height) {
+      if (grid.position.y + 60 > canvas.height) {
         setTimeout(() => {
           this.player.seeing = 0;
           this.game.over = true;
