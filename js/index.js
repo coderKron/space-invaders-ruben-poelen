@@ -98,7 +98,7 @@ document.addEventListener("keydown", ({ key }) => {
               },
               speed: {
                 x: 0,
-                y: -10,
+                y: -13,
               },
             })
           );

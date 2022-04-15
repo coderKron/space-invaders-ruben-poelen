@@ -367,7 +367,8 @@ class Game {
     if (
       amountOfAnimates % Math.floor(Math.random(200) + 500) === 0 &&
       this.player.powerUp === null &&
-      this.powerUps.length === 0
+      this.powerUps.length === 0 &&
+      this.grids.length > 1
     ) {
       this.powerUps.push(
         new PowerUp({
