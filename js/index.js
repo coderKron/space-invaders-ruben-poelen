@@ -4,7 +4,7 @@ const canvas = document.querySelector("canvas");
 const context = canvas.getContext("2d");
 let game = new Game();
 
-canvas.width = 1366;
+canvas.width = 1080;
 canvas.height = 768;
 
 let amountOfAnimates = 0;

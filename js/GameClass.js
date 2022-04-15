@@ -122,9 +122,9 @@ class Game {
     context.fillStyle = "white";
     context.font = "25px ArcadeClassic";
     context.textBaseline = "top";
-    context.fillText(`LIVES: ${this.lives}`, 1201, 20);
-    context.fillText(`P: PAUSE`, 1200, 40);
-    context.fillText(`P: CONTROLS`, 1200, 60);
+    context.fillText(`LIVES: ${this.lives}`, 940, 20);
+    context.fillText(`P: PAUSE`, 940, 40);
+    context.fillText(`P: CONTROLS`, 940, 60);
     // const heartImage = new Image();
     // heartImage.src = "./jsImage/health.png";
     // context.drawImage(heartImage, 1180, 25, 20, 20);
