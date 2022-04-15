@@ -6,9 +6,7 @@ Space invaders is the embodyment of the Arcade Era for me (maybe galaga even mor
 
 ### How to play
 
-**use a/arrowkey ->** : left
-**d/arrowkey <-** : right
-**space**: shoot
+- **use a/arrowkey ->** : left - **d/arrowkey <-** : right - **space**: shoot
 
 ### Demo
 
